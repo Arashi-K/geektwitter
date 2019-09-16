@@ -1,0 +1,58 @@
+<h1><%= link_to "GeekTwitter", tweets_path(), method: :get %>
+<% if user_signed_in? %>
+  <%= "アカウント："+current_user.name %>
+  <%= link_to "マイページ", user_path(current_user.id), method: :get %>
+  <%= link_to "ログアウト", destroy_user_session_path(), method: :delete %>
+<% else %>
+  <%= link_to "新規登録", new_user_registration_path(), method: :get %>
+  <%= link_to "ログイン", new_user_session_path(), method: :get %>
+<% end %></h1>
+
+
+<% if user_signed_in? %>
+  <% if @user == current_user %>
+
+    <P>マイページ</p>
+    <p><%= @user.name %></p>
+    <p><%= link_to "DM一覧", user_rooms_path(@user.id) %>
+    <% if @count != 0 %>
+     (<%= @count %>)
+    <% end %></p>
+    <p><%= link_to "いいね履歴", likes_user_path(@user.id) %></p>
+
+  <% else %>
+
+    <% if @room == nil %>
+      <p><%= link_to "DMを開始する", user_rooms_path(@user.id), method: :post %></p>
+    <% else %>
+      <p><%= link_to "DMをする", user_room_messages_path(@user.id, @room.id), method: :get %></p>
+    <% end %>
+    <p><%= link_to "いいね履歴", likes_user_path(@user.id), method: :get %></p>
+    <% if @follow == nil %>
+      <%= button_to "フォローする", user_follows_path(@user.id), method: :post %>
+    <% else %>
+      <%= button_to "フォロー解除", user_follow_path(@user.id, @follow.id), method: :delete %>
+    <% end %>
+
+  <% end %>
+<% end %>
+<p><%= link_to "フォロー", follow_index_user_follows_path(@user.id), method: :get %>：<%= @follow_users.count %></p>
+<p><%= link_to "フォロワー", followed_index_user_follows_path(@user.id), method: :get %>：<%= @followed_users.count %></p>
+
+
+<h3>Tweet一覧</h3>
+<div class="tweets-container">
+  <% @tweets.each do |t| %>
+    <div class="tweet">
+      <p><%= t.user.name + "：" + t.body %></p>
+      <%= t.created_at %>
+      <%= link_to "詳細へ", tweet_path(t.id) %>
+      <% if user_signed_in? %>
+        <% if t.user == current_user %>
+          <%= link_to "編集する", edit_tweet_path(t.id) %>
+          <%= link_to "削除する", tweet_path(t.id), method: :delete %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

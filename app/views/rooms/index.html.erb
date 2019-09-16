@@ -1,0 +1,18 @@
+<h1><%= link_to "GeekTwitter", tweets_path(), method: :get %>
+<% if user_signed_in? %>
+  <%= "アカウント："+current_user.name %>
+  <%= link_to "マイページ", user_path(current_user.id), method: :get %>
+  <%= link_to "ログアウト", destroy_user_session_path(), method: :delete %>
+<% else %>
+  <%= link_to "新規登録", new_user_registration_path(), method: :get %>
+  <%= link_to "ログイン", new_user_session_path(), method: :get %>
+<% end %></h1>
+
+<p>DM一覧</p>
+<% @rooms.each do |r| %>
+  <p><%= link_to r.user2.name, user_room_messages_path(r.user2_id, r.id), method: :get %>
+  <% count = r.pair_room.messages.where(checked: false).count %>
+  <% if count != 0 %>
+    <%= "(" + count.to_s + ")" %>
+  <% end %></p>
+<% end %>

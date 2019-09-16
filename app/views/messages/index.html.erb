@@ -1,0 +1,36 @@
+<h1><%= link_to "GeekTwitter", tweets_path(), method: :get %>
+<% if user_signed_in? %>
+  <%= "アカウント："+current_user.name %>
+  <%= link_to "マイページ", user_path(current_user.id), method: :get %>
+  <%= link_to "ログアウト", destroy_user_session_path(), method: :delete %>
+<% else %>
+  <%= link_to "新規登録", new_user_registration_path(), method: :get %>
+  <%= link_to "ログイン", new_user_session_path(), method: :get %>
+<% end %></h1>
+
+<p><%= link_to "DM一覧", user_rooms_path(current_user.id) %></p>
+<p><%= @user.name %></p>
+
+
+<%= form_for @message, url: user_room_messages_path(params[:user_id], params[:room_id]), method: :post do |f| %>
+  <div class="field">
+    <%= f.label :content, "メッセージ" %>
+    <%= f.text_field :content, :size => 140 %>
+  </div>
+  <%= f.submit "送信する" %>
+<% end %>
+
+<% @messages.each do |m| %>
+  <% if m.room == @room %>
+    <p><%= current_user.name+"："+m.content %>
+    <% if m.checked %>
+      (既読)
+    <% end %>
+    <%= link_to "送信取り消し", user_room_message_path(@user.id, @room.id, m.id), method: :delete %></p>
+  <% else %>
+    <p><%= @user.name + "：" + m.content %>
+    <% if !m.checked %>
+      (新)
+    <% end %></p>
+  <% end %>
+<% end %>

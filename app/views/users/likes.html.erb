@@ -1,0 +1,27 @@
+<h1><%= link_to "GeekTwitter", tweets_path(), method: :get %>
+<% if user_signed_in? %>
+  <%= "アカウント："+current_user.name %>
+  <%= link_to "マイページ", user_path(current_user.id), method: :get %>
+  <%= link_to "ログアウト", destroy_user_session_path(), method: :delete %>
+<% else %>
+  <%= link_to "新規登録", new_user_registration_path(), method: :get %>
+  <%= link_to "ログイン", new_user_session_path(), method: :get %>
+<% end %></h1>
+
+
+<P><%= @user.name %>のいいね履歴</p>
+<% @like.each do |l| %>
+  <p><%= l.tweet.user.name + "：" + l.tweet.body %></p>
+  <p><%= link_to "このツイートの詳細へ", tweet_path(l.tweet_id) %></p>
+<% end %>
+
+
+<% if user_signed_in? %>
+  <% if @user == current_user %>
+    <%= link_to "マイページへ戻る", user_path(params[:id]) %>
+  <% else %>
+    <%= link_to @user.name + "のページへ戻る", user_path(params[:id]) %>
+  <% end %>
+<% else %>
+  <%= link_to @user.name + "のページへ戻る", user_path(params[:id]) %>
+<% end %>
