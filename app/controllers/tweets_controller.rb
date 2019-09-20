@@ -2,6 +2,12 @@ class TweetsController < ApplicationController
 
   permits :body
 
+  before_action do
+    if !user_signed_in?
+      redirect_to new_user_session_path()
+    end
+  end
+
   def index
     @tweets = Tweet.all.includes(:user)
   end
@@ -14,9 +20,7 @@ class TweetsController < ApplicationController
     @tweet = Tweet.find(id)
     @comment = Comment.new
     @comments = @tweet.comments
-    if user_signed_in?
-      @like =Like.find_by(tweet: Tweet.find(id), user: current_user)
-    end
+    @like =Like.find_by(tweet: Tweet.find(id), user: current_user)
   end
 
   def edit(id)

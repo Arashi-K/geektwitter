@@ -1,33 +1,34 @@
-<h1><%= link_to "GeekTwitter", tweets_path(), method: :get %>
-<% if user_signed_in? %>
-  <%= "アカウント："+current_user.name %>
-  <%= link_to "マイページ", user_path(current_user.id), method: :get %>
-  <%= link_to "ログアウト", destroy_user_session_path(), method: :delete %>
-<% else %>
-  <%= link_to "新規登録", new_user_registration_path(), method: :get %>
-  <%= link_to "ログイン", new_user_session_path(), method: :get %>
-<% end %></h1>
+<div class="wrapper">
+  <%= render "layouts/leftbanner" %>
 
-
-<% if user_signed_in? %>
-  <p><%= link_to "新規投稿へ", new_tweet_path() %></p>
-<% end %>
-
-
-<div class="tweets-container">
-  <h3>Tweet一覧</h3>
-  <% @tweets.each do |t| %>
-    <div class="tweet">
-      <div class = "tweet_top_contents"><p><%= link_to t.user.name, user_path(t.user.id), method: :get %>
-        ：<%= t.body %></p></div>
-      <div class = "tweet_bottom_contents"><p><%= t.created_at %>
-      <%= link_to "詳細へ", tweet_path(t.id) %>
-      <% if user_signed_in? %>
-        <% if t.user == current_user %>
-          <%= link_to "編集する", edit_tweet_path(t.id) %>
-          <%= link_to "削除する", tweet_path(t.id), method: :delete %>
-        <% end %>
-      <% end %></p></div>
+  <div class="main-container">
+    <div class="top-banner">
+      ホーム
     </div>
-  <% end %>
+    <div class="new-tweet-box">
+      <%= link_to "新規投稿へ", new_tweet_path() %>
+    </div>
+    <% @tweets.each do |t| %>
+      <%= link_to tweet_path(t.id), method: :get, class: "tweet-link-box" do %>
+        <div class="tweet-container">
+          <div class = "tweet-top-contents">
+            <%=link_to t.user.name, user_path(t.user.id), method: :get %>：
+            <%= t.created_at %>
+          </div>
+          <div class="tweet-main-contents">
+            <%= t.body %>
+          </div>
+          <div class = "tweet-bottom-contents">
+            <% if t.user == current_user %>
+              <%= link_to "編集する", edit_tweet_path(t.id) %>
+              <%= link_to "削除する", tweet_path(t.id), method: :delete %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="right-banner">
+    <%= render "layouts/rightbanner" %>
+  </div>
 </div>

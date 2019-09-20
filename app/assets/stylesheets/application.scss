@@ -1,0 +1,212 @@
+
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+$twitter-blue: rgb(42, 163, 239);
+$hover-blue: rgb(233,246,253);
+$hover-tweet-blue: rgb(37,146,215);
+$hover-tweet-gray: rgb(245,248,250);
+$line-gray: #ddd;
+$area-gray: #f4f4f4;
+@import "font_awesome5_webfont";
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+ul{
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+
+  &.text-home{
+    color: $twitter-blue;
+  }
+  &.text-tweet {
+    color: white;
+  }
+}
+
+li{
+  &.icon{
+    margin: 10px auto 15px 30px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+  }
+
+  &.twitter{
+    width: 35px;
+  }
+
+  &.home, &.list{
+    width: 125px;
+  }
+
+  &.topic, &.message, &.logout{
+    width: 165px;
+  }
+
+  &.notice{
+    width: 105px;
+  }
+
+  &.bookmark, &.profile{
+    width: 180px;
+  }
+
+  &:hover{
+    background: $hover-blue;
+  }
+
+  &.tweet{
+    height: 50px;
+    width: 200px;
+    margin: 30px;
+    background: $twitter-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: bold;
+
+    &:hover{
+      background: $hover-tweet-blue;
+    }
+  }
+}
+
+
+
+i{
+  font-size: 25px;
+}
+
+i.fa-home, i.fa-twitter{
+  color: $twitter-blue;
+}
+
+i{
+  width: 30px;
+  margin-right: 15px;
+}
+
+.wrapper{
+  display: flex;
+}
+
+.left-banner{
+  width: 22%;
+  height: 1000px;
+  position: fixed;
+  background: white;
+  z-index: 2;
+  border-right: 1px solid $line-gray;
+}
+
+.main-container{
+  width: 47%;
+  height: 1000px;
+  margin-left: 22%;
+  border-right: 1px solid $line-gray;
+  z-index: 1;
+}
+
+.top-banner{
+  height: 50px;
+  width: 47%;
+  position: fixed;
+  background: white;
+  border-bottom: 1px solid $line-gray;
+  font-size: 19px;
+  font-weight: bold;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+.new-tweet-box{
+  height: 50px;
+  margin-top: 50px;
+  border-bottom: 1px solid $line-gray;
+}
+
+a.tweet-link-box{
+  height: 100%;
+  width: 47%;
+  position: absolute;
+}
+
+.tweet-container{
+  border-bottom: 1px solid $line-gray;
+  padding: 10px 5px 10px 50px;
+  &:hover{
+    background: $hover-tweet-gray;
+  }
+}
+
+.tweet-main-contents{
+  margin: 10px 0;
+}
+
+.right-banner{
+  position: fixed;
+  width: 31%;
+  margin-left: 34.5%;
+}
+
+.keyword-search{
+  height: 50px;
+  width: 350px;
+  margin: 30px;
+  background: $area-gray;
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  padding-left: 30px;
+  box-sizing: border-box;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.recommended-trend{
+  height: 280px;
+  width: 350px;
+  margin: 30px;
+  background: $area-gray;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.recommended-user{
+  height: 280px;
+  width: 350px;
+  margin: 30px;
+  background: $area-gray;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}

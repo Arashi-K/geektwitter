@@ -1,0 +1,15 @@
+<div class="left-banner">
+  <ul>
+    <li class="icon twitter"><a href="/"><i class="fab fa-twitter"></i></a></li>
+    <li class="icon home"><a href="/" class="text-home"><i class="fa fa-home"></i>ホーム</a></li>
+    <li class="icon topic"><a href="/"><i class="fa fa-hashtag"></i>話題を検索</a></li>
+    <li class="icon notice"><a href="/"><i class="far fa-bell"></i>通知</a></li>
+    <li class="icon message"><a href="/"><i class="far fa-envelope"></i>メッセージ</a></li>
+    <li class="icon bookmark"><a href="/"><i class="far fa-bookmark"></i>ブックマーク</a></li>
+    <li class="icon list"><a href="/"><i class="far fa-list-alt"></i>リスト</a></li>
+    <li class="icon profile"><%= link_to user_path(current_user.id) do%><i class="far fa-user"></i>プロフィール<% end %></li>
+    <li class="icon profile"><a href="/users/<%= current_user.id %>"><i class="far fa-user"></i>プロフィール</a></li>
+    <li class="icon logout"><%= link_to destroy_user_session_path(), method: :delete do%><i class="fas fa-ellipsis-h"></i>ログアウト</a><% end %></li>
+    <li class="tweet"><a href="/tweets/new" class="text-tweet">ツイート</a></li>
+  </ul>
+</div>
